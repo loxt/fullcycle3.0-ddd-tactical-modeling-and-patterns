@@ -2,30 +2,35 @@ class Customer {
   constructor(
     private _id: string,
     private _name: string,
-    private _address: string,
-  ) {}
-
-  get id(): string {
-    return this._id;
+    private _address: string = '',
+    private _active: boolean = false,
+  ) {
+    this.validate();
   }
 
-  set id(value: string) {
-    this._id = value;
+  validate() {
+    if (this._name.length === 0) {
+      throw new Error('Name is required');
+    }
+
+    if (this._id.length === 0) {
+      throw new Error('Id is required');
+    }
   }
 
-  get name(): string {
-    return this._name;
+  changeName(name: string) {
+    this._name = name;
+    this.validate();
   }
 
-  set name(value: string) {
-    this._name = value;
+  activate() {
+    if (this._address.length === 0) {
+      throw new Error('Address is mandatory to activate a customer');
+    }
+    this._active = true;
   }
 
-  get address(): string {
-    return this._address;
-  }
-
-  set address(value: string) {
-    this._address = value;
+  deactivate() {
+    this._active = false;
   }
 }
