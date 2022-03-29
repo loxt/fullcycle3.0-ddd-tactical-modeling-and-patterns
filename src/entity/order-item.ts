@@ -1,7 +1,3 @@
 export default class OrderItem {
-  constructor(
-    private _id: string,
-    private _name: string,
-    private _price: number,
-  ) {}
+  constructor(public id: string, public name: string, public price: number) {}
 }
