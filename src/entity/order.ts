@@ -2,12 +2,25 @@ import OrderItem from './order-item';
 
 export default class Order {
   constructor(
-    public id: string,
-    public customerId: string,
-    public items: OrderItem[],
-    public total: number,
+    private id: string,
+    private customerId: string,
+    private items: OrderItem[],
+    private total?: number,
   ) {
     this.total = this.orderTotal();
+    this.validate();
+  }
+
+  validate() {
+    if (this.id.length === 0) {
+      throw new Error('Id is required');
+    }
+    if (this.customerId.length === 0) {
+      throw new Error('CustomerId is required');
+    }
+    if (this.items.length === 0) {
+      throw new Error('Item quantity must be greater than 0');
+    }
   }
 
   orderTotal(): number {
