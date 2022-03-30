@@ -2,26 +2,33 @@ import Address from './address';
 
 export default class Customer {
   constructor(
-    public id: string,
-    public name: string,
+    private id: string,
+    private _name: string,
     public address?: Address,
-    public active: boolean = false,
+    private active: boolean = false,
   ) {
     this.validate();
   }
 
-  validate() {
-    if (this.name.length === 0) {
-      throw new Error('Name is required');
-    }
+  get name(): string {
+    return this._name;
+  }
 
+  isActive(): boolean {
+    return this.active;
+  }
+
+  validate() {
     if (this.id.length === 0) {
       throw new Error('Id is required');
+    }
+    if (this.name.length === 0) {
+      throw new Error('Name is required');
     }
   }
 
   changeName(name: string) {
-    this.name = name;
+    this._name = name;
     this.validate();
   }
 
