@@ -2,12 +2,16 @@ import Address from './address';
 
 export default class Customer {
   constructor(
-    private id: string,
+    private _id: string,
     private _name: string,
     public address?: Address,
     private active: boolean = false,
   ) {
     this.validate();
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get name(): string {
@@ -19,7 +23,7 @@ export default class Customer {
   }
 
   validate() {
-    if (this.id.length === 0) {
+    if (this._id.length === 0) {
       throw new Error('Id is required');
     }
     if (this.name.length === 0) {

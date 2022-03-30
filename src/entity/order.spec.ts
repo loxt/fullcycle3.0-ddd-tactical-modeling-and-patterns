@@ -14,17 +14,24 @@ describe('Order unit tests', () => {
     }).toThrowError('CustomerId is required');
   });
 
-  it('should throw an error if item quantity is less than 0', function() {
+  it('should throw an error if order has items', function() {
     expect(() => {
       return new Order('1', '1', []);
-    }).toThrowError('Item quantity must be greater than 0');
+    }).toThrowError('Items are required');
   });
 
   it('should calculate total', function() {
-    const item1 = new OrderItem('1', 'Bola', 10);
-    const item2 = new OrderItem('1', 'Caneta', 2);
+    const item1 = new OrderItem('1', 'Bola', 10, 'p1', 1);
+    const item2 = new OrderItem('1', 'Caneta', 2, 'p1', 2);
     const order = new Order('1', '1', [item1, item2]);
 
-    expect(order.orderTotal()).toBe(12);
+    expect(order.orderTotal()).toBe(14);
+  });
+
+  it('should throw error if item quantity is greater than 0', function() {
+    expect(() => {
+      const item1 = new OrderItem('1', 'Bola', 10, 'p1', 0);
+      const order = new Order('1', '1', [item1]);
+    }).toThrowError('Item quantity must be greater than 0');
   });
 });
