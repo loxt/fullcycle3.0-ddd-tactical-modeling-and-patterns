@@ -33,4 +33,29 @@ describe('Product repository unit tests', function() {
       price: 100,
     });
   });
+
+  it('should update a product', async () => {
+    const productRepository = new ProductRepository();
+    const product = new Product('1', 'Product 1', 100);
+    await productRepository.create(product);
+
+    const productFromDb = await ProductModel.findOne({where: {id: '1'}});
+    expect(productFromDb.toJSON()).toStrictEqual({
+      id: '1',
+      name: 'Product 1',
+      price: 100,
+    });
+
+    product.changeName('Product 2');
+    product.changePrice(200);
+
+    await productRepository.update(product);
+
+    const productFromDb2 = await ProductModel.findOne({where: {id: '1'}});
+    expect(productFromDb2.toJSON()).toStrictEqual({
+      id: '1',
+      name: 'Product 2',
+      price: 200,
+    });
+  });
 });
