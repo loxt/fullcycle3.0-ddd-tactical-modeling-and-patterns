@@ -16,7 +16,9 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findById(id: string): Promise<Product> {
-    return Promise.resolve(undefined);
+    const product = await ProductModel.findByPk(id);
+
+    return new Product(product.id, product.name, product.price);
   }
 
   async update(entity: Product): Promise<void> {
