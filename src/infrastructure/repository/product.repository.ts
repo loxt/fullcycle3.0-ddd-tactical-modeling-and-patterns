@@ -12,7 +12,10 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findAll(): Promise<Product[]> {
-    return Promise.resolve([]);
+    const products = await ProductModel.findAll();
+    return products.map(
+        (product) => new Product(product.id, product.name, product.price),
+    );
   }
 
   async findById(id: string): Promise<Product> {
