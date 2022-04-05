@@ -78,7 +78,10 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async findById(id: string): Promise<Order> {
-    const order = await OrderModel.findByPk(id);
+    const order = await OrderModel.findOne({
+      where: {id},
+      include: ['items'],
+    });
     const orderItems = order.items.map((item) => {
       return new OrderItem(
           item.id,
