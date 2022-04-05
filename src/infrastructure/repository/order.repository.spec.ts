@@ -91,7 +91,6 @@ describe('Order repository unit tests', function() {
     customer.changeAddress(address);
 
     await customerRepository.create(customer);
-
     const productRepository = new ProductRepository();
     const product = new Product('1', 'Product 1', 10);
     await productRepository.create(product);
@@ -101,7 +100,7 @@ describe('Order repository unit tests', function() {
         product.name,
         product.price,
         product.id,
-        4,
+        1,
     );
 
     const order = new Order('1', customer.id, [orderItem]);
@@ -109,27 +108,18 @@ describe('Order repository unit tests', function() {
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
 
-    const orderModelFromDb = await OrderModel.findOne({
-      where: {id: order.id},
-      include: ['items'],
-    });
+    const orderFound = await orderRepository.findById('1');
 
-    const orderModel = await orderRepository.findById(order.id);
-
-    expect(orderModelFromDb.toJSON()).toStrictEqual({
-      id: orderModel.id,
-      customer_id: orderModel.customerId,
-      items: orderModel.items.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          order_id: orderModel.id,
-          product_id: item.productId,
-          quantity: item.quantity,
-        };
-      }),
-      total: orderModel.orderTotal(),
+    expect({
+      id: order.id,
+      customer_id: order.customerId,
+      total: order.orderTotal(),
+      items: order.items,
+    }).toStrictEqual({
+      id: '1',
+      customer_id: '1',
+      total: orderFound.orderTotal(),
+      items: orderFound.items,
     });
   });
 

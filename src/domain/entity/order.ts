@@ -1,14 +1,6 @@
 import OrderItem from './order-item';
 
 export default class Order {
-  get items(): OrderItem[] {
-    return this._items;
-  }
-
-  get customerId(): string {
-    return this._customerId;
-  }
-
   constructor(
     private _id: string,
     private _customerId: string,
@@ -17,6 +9,14 @@ export default class Order {
   ) {
     this.total = this.orderTotal();
     this.validate();
+  }
+
+  get items(): OrderItem[] {
+    return this._items;
+  }
+
+  get customerId(): string {
+    return this._customerId;
   }
 
   get id(): string {

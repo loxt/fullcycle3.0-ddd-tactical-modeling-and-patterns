@@ -82,7 +82,8 @@ export default class OrderRepository implements OrderRepositoryInterface {
       where: {id},
       include: ['items'],
     });
-    const orderItems = order.items.map((item) => {
+
+    const orderItems: OrderItem[] = order.items.map((item) => {
       return new OrderItem(
           item.id,
           item.name,
@@ -91,7 +92,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
           item.quantity,
       );
     });
-
     return new Order(order.id, order.customer_id, orderItems, order.total);
   }
 }
