@@ -3,13 +3,24 @@ import EventHandlerInterface from './event-handler.interface';
 import EventInterface from './event.interface';
 
 export default class EventDispatcher implements EventDispatcherInterface {
+  private eventHandlers: { [eventName: string]: EventHandlerInterface[] } = {};
+
+  get getEventHandlers(): { [eventName: string]: EventHandlerInterface[] } {
+    return this.eventHandlers;
+  }
+
   notify(event: EventInterface): void {
     console.log(`Event: ${event}`);
   }
 
-  register(event: string, eventHandler: EventHandlerInterface): void {}
+  register(eventName: string, eventHandler: EventHandlerInterface): void {
+    if (!this.eventHandlers[eventName]) {
+      this.eventHandlers[eventName] = [];
+    }
+    this.eventHandlers[eventName].push(eventHandler);
+  }
 
-  unregister(event: string, eventHandler: EventHandlerInterface): void {}
+  unregister(eventName: string, eventHandler: EventHandlerInterface): void {}
 
   unregisterAll(): void {}
 }
