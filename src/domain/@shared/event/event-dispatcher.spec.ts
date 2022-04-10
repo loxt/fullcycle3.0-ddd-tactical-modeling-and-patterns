@@ -1,13 +1,13 @@
 import EventDispatcher from './event-dispatcher';
-import SendEmailWhenProductIsCreatedHandler from '../product/handler/send-email-when-product-is-created.handler';
-import ProductCreatedEvent from '../product/product-created.event';
-import SendLogWhenCustomerIsCreatedHandler from '../customer/handler/send-log-when-customer-is-created.handler';
-import SendSecondLogWhenCustomerIsCreatedHandler from '../customer/handler/send-second-log-when-customer-is-created.handler';
-import CustomerCreatedEvent from '../customer/customer-created.event';
-import SendLogWhenCustomerAddressIsChangedHandler from '../customer/handler/send-log-when-customer-address-is-changed.handler';
-import CustomerAddressChangedEvent from '../customer/customer-address-changed.event';
-import Address from '../../entity/address';
-import Customer from '../../entity/customer';
+import SendEmailWhenProductIsCreatedHandler from '../../product/event/handler/send-email-when-product-is-created.handler';
+import ProductCreatedEvent from '../../product/event/product-created.event';
+import SendLogWhenCustomerIsCreatedHandler from '../../customer/event/handler/send-log-when-customer-is-created.handler';
+import SendSecondLogWhenCustomerIsCreatedHandler from '../../customer/event/handler/send-second-log-when-customer-is-created.handler';
+import CustomerCreatedEvent from '../../customer/event/customer-created.event';
+import SendLogWhenCustomerAddressIsChangedHandler from '../../customer/event/handler/send-log-when-customer-address-is-changed.handler';
+import CustomerAddressChangedEvent from '../../customer/event/customer-address-changed.event';
+import Address from '../../customer/value-object/address';
+import Customer from '../../customer/entity/customer';
 
 describe('Product domain events tests', () => {
   it('should register an event handler', () => {
